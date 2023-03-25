@@ -1,7 +1,7 @@
 <template>
   <div class="[ btns ]">
     <button class="[ back ]" v-if="current > 1" @click="handleBackStep">Go Back</button>
-    <button class="[ next ]" :class="{ confirm: current === steps.length - 1 }" @click="handleNextStep">{{ current === steps.length - 1 ? 'Confirm' : 'Next' }}</button>
+    <button class="[ next ]" @click="handleNextStep">Next</button>
  </div>
 </template>
 
@@ -20,11 +20,11 @@ export default {
     },
     methods: {
         handleNextStep() {
-            const nextComponent = this.getNextComponent();
             if (this.current === this.steps.length - 1) {
-                this.$emit('next', this.steps[this.current]);
-            } else {
+                const nextComponent = this.getNextComponent();
                 this.$emit('next', nextComponent);
+            } else {
+                this.$emit('next');
             }
         },
         handleBackStep() {
