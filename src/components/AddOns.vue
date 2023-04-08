@@ -40,8 +40,13 @@ export default {
     },
     methods: {
       toggleSelection(service) {
-      service.selected = !service.selected
-    }
+      service.selected = !service.selected;
+      this.emitSelectedAddons();
+    },
+      emitSelectedAddons() {
+        const selectedServices = this.services.filter(service => service.selected);
+        this.$emit('selectedAddons', selectedServices);
+  }
   }
 }
 </script>
@@ -65,12 +70,12 @@ export default {
 
   .all-services{
     display: flex;
-
     flex-direction: column;
     gap: 15px;
+    padding-bottom: 10px;
     .service {
       display: flex;
-      border: 1px solid var(--purplish-blue);
+      border: 1px solid var(--cool-gray);
       border-radius: var(--border);
       align-items: center;
       height: 70px;
@@ -79,7 +84,7 @@ export default {
       .check {
         width: 22px;
         height: 18px;
-        margin: 0 18px;
+        margin: 0 12px;
       }
 
       .division {
@@ -98,6 +103,7 @@ export default {
   
         span {
           color: var(--cool-gray);
+          font-size: 14px;
         }
       }
 
@@ -107,7 +113,19 @@ export default {
 
       &.selected {
         background-color: var(--magnolia);
+        border: 1px solid var(--marine-blue);
       }
     }
   }
+  @media only screen and (max-width: 770px) {
+  .top{
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    span {
+      font-size: 1.2rem;
+    }
+  }
+}
 </style>

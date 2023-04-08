@@ -26,12 +26,12 @@
     </div>
 
     <div class="duration">
-      <span>Monthly</span>
+      <span :class="{ 'highlighted': !isYearlyBilling }">Monthly</span>
       <label class="[ switch ]">
         <input type="checkbox" @change="onChangeBillingType">
         <span class="[ slider ]"></span>
       </label>
-      <span>Yearly</span>
+      <span :class="{ 'highlighted': isYearlyBilling }">Yearly</span>
     </div>
 
   </div>
@@ -52,11 +52,27 @@ export default {
         selectedCardIndex: null,
       }
     },
+    computed: {
+      monthlyClass() {
+        return { 'highlighted': !this.isYearlyBilling };
+      },
+      yearlyClass() {
+        return { 'highlighted': this.isYearlyBilling };
+      },
+      selectedCard() {
+        return this.cards[this.selectedCardIndex]
+      }
+    },
+    watch: {
+      selectedCard() {
+        this.$emit('cardSelected', this.selectedCard)
+      }
+    },
     methods: {
       onChangeBillingType() {
         this.isYearlyBilling = !this.isYearlyBilling
       }
-    }
+    },
 }
 </script>
 
@@ -135,6 +151,11 @@ export default {
   align-items: center;
   border-radius: var(--border);
 
+  .highlighted {
+    color: var(--marine-blue);
+    font-weight: bold;
+  }
+
     .switch {
       font-size: 11px;
       position: relative;
@@ -177,5 +198,41 @@ export default {
       transform: translateX(1.9em);
     }
   }
-} 
+}
+@media only screen and (max-width: 770px) {
+  .top{
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    span {
+      font-size: 1.2rem;
+    }
+  }
+  .cards {
+    flex-direction: column;
+    gap: 10px;
+
+    .card {
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      width: auto;
+      height: 70px;
+      gap: 10px;
+
+      .plan {
+        h3 {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+  .duration {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    height: 50px;
+    width: auto;
+  }
+}
 </style>
