@@ -16,6 +16,7 @@
             class="[ component ]"
             :showThanks="showThanks"
             @cardSelected="onCardSelected"
+            :selectedPlan="selectedPlan"
             v-on:selectedAddons="handleSelectedAddons"
           />
         </div>
@@ -53,12 +54,10 @@ export default {
         name: '',
         email: '',
         phone: '',
-        plan: {
-          type: 'month'
-        }
       },
       beforeAction: null,
       showThanks: false,
+      selectedPlan: null
     }
   },
   computed: {
@@ -87,7 +86,7 @@ export default {
       this.showThanks = !this.showThanks
     },
     onCardSelected(card) {
-      this.user.plan = card    
+      this.selectedPlan = card 
     }
   }
 }

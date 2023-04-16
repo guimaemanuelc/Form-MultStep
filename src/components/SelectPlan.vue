@@ -50,15 +50,10 @@ export default {
         ],
         isYearlyBilling: false,
         selectedCardIndex: null,
+        selectedPlan: null
       }
     },
     computed: {
-      monthlyClass() {
-        return { 'highlighted': !this.isYearlyBilling };
-      },
-      yearlyClass() {
-        return { 'highlighted': this.isYearlyBilling };
-      },
       selectedCard() {
         return this.cards[this.selectedCardIndex]
       }
@@ -71,6 +66,9 @@ export default {
     methods: {
       onChangeBillingType() {
         this.isYearlyBilling = !this.isYearlyBilling
+      },
+      onSelectedCard(card) {
+        this.$emit('cardSelected', card)
       }
     },
 }

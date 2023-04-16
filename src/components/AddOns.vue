@@ -40,8 +40,8 @@ export default {
     },
     methods: {
       toggleSelection(service) {
-      service.selected = !service.selected;
-      this.emitSelectedAddons();
+        service.selected = !service.selected;
+        this.emitSelectedAddons();
     },
       emitSelectedAddons() {
         const selectedServices = this.services.filter(service => service.selected);
